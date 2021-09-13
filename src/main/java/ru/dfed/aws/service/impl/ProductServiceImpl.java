@@ -3,6 +3,7 @@ package ru.dfed.aws.service.impl;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,5 +64,15 @@ public class ProductServiceImpl implements ProductService {
     public void delete(Long id) {
         log.debug("Request to delete Product : {}", id);
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Product> getProductByPartsNumber(String partsNumber) {
+        return productRepository.getProductByPartsNumber(partsNumber);
+    }
+
+    @Override
+    public void saveProduct(Product product) {
+        productRepository.save(product);
     }
 }

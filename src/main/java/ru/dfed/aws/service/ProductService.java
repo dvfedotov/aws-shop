@@ -2,6 +2,8 @@ package ru.dfed.aws.service;
 
 
 import java.util.List;
+import java.util.Optional;
+import ru.dfed.aws.domain.Product;
 import ru.dfed.aws.domain.dto.ProductDTO;
 
 
@@ -37,4 +39,8 @@ public interface ProductService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    Optional<Product> getProductByPartsNumber(String partsNumber);
+
+    void saveProduct(Product product);
 }

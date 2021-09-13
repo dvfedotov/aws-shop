@@ -1,21 +1,18 @@
-
 spring:
   application:
     name: aws
   jmx:
     enabled: false
-  h2:
-    console:
-      enabled: true
-      path: /h2
   datasource:
-    url: jdbc:h2:file:./target/h2db/db/access
-    driverClassName: org.h2.Driver
-    username: access
-    password:
-    database-platform: org.hibernate.dialect.H2Dialect
-
+    url: jdbc:postgresql://localhost:5432/postgres
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: 1234
   jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgresPlusDialect
+    database-platform: com.epam.subo.util.domain.FixedPostgreSql95Dialect
     show-sql: true
     hibernate:
       ddl-auto: create-drop

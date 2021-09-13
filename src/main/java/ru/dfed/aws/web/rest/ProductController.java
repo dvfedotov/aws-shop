@@ -41,7 +41,6 @@ public class ProductController {
             .body(result);
     }
 
-
     @GetMapping("/product")
     public List<ProductDTO> getAllProducts() {
         log.debug("REST request to get all Products");
