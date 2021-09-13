@@ -5,18 +5,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-import javax.validation.constraints.NotNull;
 
 public class ShoppingCartDTO implements Serializable {
 
-    @JsonIgnore
+    @JsonProperty("cart_id")
     private Long id;
 
-    @NotNull
+
+    @JsonIgnore
     private String revisionNumber;
 
+    @JsonIgnore
     private LocalDate orderDate;
 
+    @JsonIgnore
     private Long customerId;
 
     @JsonProperty("products")

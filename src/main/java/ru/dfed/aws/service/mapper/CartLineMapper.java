@@ -1,27 +1,30 @@
 package ru.dfed.aws.service.mapper;
 
 
-
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.dfed.aws.domain.CartLine;
 import ru.dfed.aws.domain.dto.CartLineDTO;
+import ru.dfed.aws.service.ProductService;
 
 @Mapper(componentModel = "spring", uses = {ShoppingCartMapper.class})
-public interface CartLineMapper extends EntityMapper<CartLineDTO, CartLine> {
+public abstract class CartLineMapper {
 
+    @Autowired
+    ProductService productService;
+
+    @Mapping(target = "name", ignore = true)
     @Mapping(source = "shoppingCart.id", target = "shoppingCartId")
-    CartLineDTO toDto(CartLine cartLine);
+    public abstract CartLineDTO toDto(CartLine cartLine);
 
     @Mapping(source = "shoppingCartId", target = "shoppingCart")
-    CartLine toEntity(CartLineDTO cartLineDTO);
+    public abstract CartLine toEntity(CartLineDTO cartLineDTO);
 
-    default CartLine fromId(Long id) {
-        if (id == null) {
-            return null;
-        }
-        CartLine cartLine = new CartLine();
-        cartLine.setId(id);
-        return cartLine;
+    @AfterMapping
+    void secondStepMapping(@MappingTarget CartLineDTO cartLineDTO, CartLine cartLine) {
+        cartLineDTO.setName(productService.findOne(cartLine.getProductId()).getName());
     }
 }

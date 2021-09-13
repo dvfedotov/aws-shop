@@ -1,19 +1,28 @@
 package ru.dfed.aws.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 
 public class CartLineDTO implements Serializable {
 
+    @JsonIgnore
     private Long id;
 
     @NotNull
+    @JsonIgnore
     private String productId;
 
+    @JsonProperty("product_name")
+    private String name;
+
+    @JsonProperty("product_price")
     private Integer salesPrice;
 
     private Integer quantity;
 
+    @JsonIgnore
     private Long shoppingCartId;
 
     public Long getId() {
@@ -54,6 +63,14 @@ public class CartLineDTO implements Serializable {
 
     public void setShoppingCartId(Long shoppingCartId) {
         this.shoppingCartId = shoppingCartId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
