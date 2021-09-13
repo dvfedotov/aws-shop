@@ -13,9 +13,8 @@ public interface ShoppingCartMapper extends EntityMapper<ShoppingCartDTO, Shoppi
     @Mapping(source = "customer.id", target = "customerId")
     ShoppingCartDTO toDto(ShoppingCart shoppingCart);
 
+    @Mapping(source = "cartLines", target = "cartLineIds")
     @Mapping(source = "customerId", target = "customer")
-    @Mapping(source = "cartLineIds", target = "cartLineIds")
-    @Mapping(target = "removeCartLineId", ignore = true)
     ShoppingCart toEntity(ShoppingCartDTO shoppingCartDTO);
 
     default ShoppingCart fromId(Long id) {

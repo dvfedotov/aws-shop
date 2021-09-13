@@ -2,8 +2,7 @@ package ru.dfed.aws.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,9 +42,8 @@ public class ShoppingCart implements Serializable {
 
     @OneToMany(mappedBy = "shoppingCart")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<CartLine> cartLineIds = new HashSet<>();
+    private List<CartLine> cartLineIds;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }
@@ -93,31 +91,13 @@ public class ShoppingCart implements Serializable {
         return this;
     }
 
-    public Set<CartLine> getCartLineIds() {
+    public List<CartLine> getCartLineIds() {
         return cartLineIds;
     }
 
-    public void setCartLineIds(Set<CartLine> cartLines) {
-        this.cartLineIds = cartLines;
+    public void setCartLineIds(List<CartLine> cartLineIds) {
+        this.cartLineIds = cartLineIds;
     }
-
-    public ShoppingCart cartLineIds(Set<CartLine> cartLines) {
-        this.cartLineIds = cartLines;
-        return this;
-    }
-
-    public ShoppingCart addCartLineId(CartLine cartLine) {
-        this.cartLineIds.add(cartLine);
-        cartLine.setShoppingCart(this);
-        return this;
-    }
-
-    public ShoppingCart removeCartLineId(CartLine cartLine) {
-        this.cartLineIds.remove(cartLine);
-        cartLine.setShoppingCart(null);
-        return this;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {

@@ -1,9 +1,7 @@
 package ru.dfed.aws.config;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 import ru.dfed.aws.domain.CartLine;
@@ -61,7 +59,7 @@ public class DataInitializer {
     }
 
     private void initShoppingCart() {
-        Set<CartLine> cartLineSet = new HashSet<>();
+        List<CartLine> cartLineSet = new ArrayList<>();
         CartLine cartLine1 = new CartLine();
         cartLine1.setProductId(productService.getProductByPartsNumber("1274682HHJ").get().getId());
         cartLine1.quantity(10).salesPrice(150);

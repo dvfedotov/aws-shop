@@ -54,6 +54,14 @@ public class ShoppingCartDTO implements Serializable {
         this.customerId = customerId;
     }
 
+    public List<CartLineDTO> getCartLines() {
+        return cartLines;
+    }
+
+    public void setCartLines(List<CartLineDTO> cartLines) {
+        this.cartLines = cartLines;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
