@@ -3,7 +3,7 @@ package ru.dfed.aws.domain.dto;
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 
-public class ProductDTO implements Serializable {
+public class CustomerDTO implements Serializable {
 
     private Long id;
 
@@ -11,9 +11,10 @@ public class ProductDTO implements Serializable {
     private String name;
 
     @NotNull
-    private String partsNumber;
+    private String lastName;
 
-    private Integer price;
+    @NotNull
+    private String email;
 
 
     public Long getId() {
@@ -32,20 +33,20 @@ public class ProductDTO implements Serializable {
         this.name = name;
     }
 
-    public String getPartsNumber() {
-        return partsNumber;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setPartsNumber(String partsNumber) {
-        this.partsNumber = partsNumber;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public Integer getPrice() {
-        return price;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
@@ -53,11 +54,11 @@ public class ProductDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ProductDTO)) {
+        if (!(o instanceof CustomerDTO)) {
             return false;
         }
 
-        return id != null && id.equals(((ProductDTO) o).id);
+        return id != null && id.equals(((CustomerDTO) o).id);
     }
 
     @Override
@@ -68,11 +69,11 @@ public class ProductDTO implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "ProductDTO{" +
+        return "CustomerDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", partsNumber='" + getPartsNumber() + "'" +
-            ", price=" + getPrice() +
+            ", lastName='" + getLastName() + "'" +
+            ", email='" + getEmail() + "'" +
             "}";
     }
 }

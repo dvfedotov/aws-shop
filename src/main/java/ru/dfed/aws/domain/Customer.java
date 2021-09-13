@@ -1,12 +1,13 @@
 package ru.dfed.aws.domain;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -14,9 +15,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
-@Table(name = "product")
+@Table(name = "customer")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Product implements Serializable {
+public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,11 +31,16 @@ public class Product implements Serializable {
     private String name;
 
     @NotNull
-    @Column(name = "parts_number", nullable = false)
-    private String partsNumber;
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
 
-    @Column(name = "price")
-    private Integer price;
+    @NotNull
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @OneToOne(mappedBy = "customer")
+    @JsonIgnore
+    private ShoppingCart shoppingCart;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -53,34 +59,47 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public Product name(String name) {
+    public Customer name(String name) {
         this.name = name;
         return this;
     }
 
-    public String getPartsNumber() {
-        return partsNumber;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setPartsNumber(String partsNumber) {
-        this.partsNumber = partsNumber;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public Product partsNumber(String partsNumber) {
-        this.partsNumber = partsNumber;
+    public Customer lastName(String lastName) {
+        this.lastName = lastName;
         return this;
     }
 
-    public Integer getPrice() {
-        return price;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Product price(Integer price) {
-        this.price = price;
+    public Customer email(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
+    public Customer shoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
         return this;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -90,10 +109,10 @@ public class Product implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Product)) {
+        if (!(o instanceof Customer)) {
             return false;
         }
-        return id != null && id.equals(((Product) o).id);
+        return id != null && id.equals(((Customer) o).id);
     }
 
     @Override
@@ -104,11 +123,11 @@ public class Product implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "Product{" +
+        return "Customer{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", partsNumber='" + getPartsNumber() + "'" +
-            ", price=" + getPrice() +
+            ", lastName='" + getLastName() + "'" +
+            ", email='" + getEmail() + "'" +
             "}";
     }
 }

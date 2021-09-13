@@ -8,6 +8,8 @@ import ru.dfed.aws.domain.dto.ProductDTO;
 @Mapper(componentModel = "spring", uses = {})
 public interface ProductMapper extends EntityMapper<ProductDTO, Product> {
 
+
+
     default Product fromId(Long id) {
         if (id == null) {
             return null;
