@@ -2,11 +2,13 @@ package ru.dfed.aws.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -36,7 +38,8 @@ public class CartLine implements Serializable {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "shopping_cart_id")
     @JsonIgnoreProperties(value = "cartLineIds", allowSetters = true)
     private ShoppingCart shoppingCart;
 
@@ -52,17 +55,21 @@ public class CartLine implements Serializable {
         return productId;
     }
 
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
     public CartLine productId(Long productId) {
         this.productId = productId;
         return this;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
     public Integer getSalesPrice() {
         return salesPrice;
+    }
+
+    public void setSalesPrice(Integer salesPrice) {
+        this.salesPrice = salesPrice;
     }
 
     public CartLine salesPrice(Integer salesPrice) {
@@ -70,12 +77,12 @@ public class CartLine implements Serializable {
         return this;
     }
 
-    public void setSalesPrice(Integer salesPrice) {
-        this.salesPrice = salesPrice;
-    }
-
     public Integer getQuantity() {
         return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public CartLine quantity(Integer quantity) {
@@ -83,12 +90,12 @@ public class CartLine implements Serializable {
         return this;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
     public ShoppingCart getShoppingCart() {
         return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
     }
 
     public CartLine shoppingCart(ShoppingCart shoppingCart) {
@@ -96,10 +103,6 @@ public class CartLine implements Serializable {
         return this;
     }
 
-    public void setShoppingCart(ShoppingCart shoppingCart) {
-        this.shoppingCart = shoppingCart;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {

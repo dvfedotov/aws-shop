@@ -37,6 +37,7 @@ public class ShoppingCartController {
             shoppingCartDTO = shoppingCartService.findById(cartId).get();
         } else {
             shoppingCartDTO = new ShoppingCartDTO();
+            shoppingCartDTO.setId(cartId);
             shoppingCartService.save(shoppingCartDTO);
         }
         return ResponseEntity.ok(shoppingCartDTO);
@@ -57,6 +58,6 @@ public class ShoppingCartController {
     public ResponseEntity<String> deleteCart(@PathVariable Long cartId) {
         log.debug("REST request to get Product : {}", cartId);
         shoppingCartService.delete(cartId);
-        return ResponseEntity.ok("The cart with " + cartId + "has been deleted");
+        return ResponseEntity.ok("The cart with " + cartId + " has been deleted");
     }
 }

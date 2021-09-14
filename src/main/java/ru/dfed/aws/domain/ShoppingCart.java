@@ -2,7 +2,9 @@ package ru.dfed.aws.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +30,7 @@ public class ShoppingCart implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "revision_number", nullable = false)
+    @Column(name = "revision_number")
     private String revisionNumber;
 
     @Column(name = "order_date")
@@ -38,7 +40,7 @@ public class ShoppingCart implements Serializable {
     @JoinColumn(unique = true)
     private Customer customer;
 
-    @OneToMany(mappedBy = "shoppingCart")
+    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<CartLine> cartLineIds;
 
@@ -94,7 +96,15 @@ public class ShoppingCart implements Serializable {
     }
 
     public void setCartLineIds(List<CartLine> cartLineIds) {
+        if (cartLineIds == null) {
+            this.cartLineIds = Collections.emptyList();
+            return;
+        }
         this.cartLineIds = cartLineIds;
+        for (CartLine cartLine : cartLineIds) {
+            cartLine.setShoppingCart(this);
+        }
+
     }
 
     @Override
@@ -113,7 +123,6 @@ public class ShoppingCart implements Serializable {
         return 31;
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "ShoppingCart{" +

@@ -42,7 +42,6 @@ public class Customer implements Serializable {
     @JsonIgnore
     private ShoppingCart shoppingCart;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }

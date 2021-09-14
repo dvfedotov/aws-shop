@@ -1,12 +1,14 @@
 package ru.dfed.aws.service.mapper;
 
 
+import java.util.Optional;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.dfed.aws.domain.CartLine;
+import ru.dfed.aws.domain.Product;
 import ru.dfed.aws.domain.dto.CartLineDTO;
 import ru.dfed.aws.service.ProductService;
 
@@ -26,5 +28,11 @@ public abstract class CartLineMapper {
     @AfterMapping
     void secondStepMapping(@MappingTarget CartLineDTO cartLineDTO, CartLine cartLine) {
         cartLineDTO.setName(productService.findOne(cartLine.getProductId()).getName());
+    }
+
+    @AfterMapping
+    void secondStepMapping(@MappingTarget CartLine cartLine, CartLineDTO cartLineDTO) {
+        Optional<Product> optionalCartLine = productService.findByName(cartLineDTO.getName());
+        optionalCartLine.ifPresent(line -> cartLine.setProductId(line.getId()));
     }
 }

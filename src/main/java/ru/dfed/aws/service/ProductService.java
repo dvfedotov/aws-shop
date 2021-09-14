@@ -43,4 +43,6 @@ public interface ProductService {
     Optional<Product> getProductByPartsNumber(String partsNumber);
 
     void saveProduct(Product product);
+
+    Optional<Product>  findByName(String name);
 }
