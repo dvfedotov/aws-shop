@@ -4,10 +4,10 @@ spring:
   jmx:
     enabled: false
   datasource:
-    url: jdbc:postgresql://postgres-instance-1.cslje4xnrbex.us-west-2.rds.amazonaws.com:5432/postgres
+    url: jdbc:postgresql://localhost:5432/postgres
     driverClassName: org.postgresql.Driver
     username: postgres
-    password: 12345678
+    password: 1234
   jpa:
     properties:
       hibernate:
