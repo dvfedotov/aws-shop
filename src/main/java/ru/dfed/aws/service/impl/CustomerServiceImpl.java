@@ -1,6 +1,7 @@
 package ru.dfed.aws.service.impl;
 
 
+import com.amazonaws.xray.spring.aop.XRayEnabled;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import ru.dfed.aws.service.mapper.CustomerMapper;
 
 
 @Service
+@XRayEnabled
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
 
@@ -58,8 +60,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional(readOnly = true)
     public List<CustomerDTO> findAllWhereShoppingCartIsNull() {
         log.debug("Request to get all customers where ShoppingCart is null");
-        return StreamSupport
-            .stream(customerRepository.findAll().spliterator(), false)
+        return customerRepository.findAll().stream()
             .filter(customer -> customer.getShoppingCart() == null)
             .map(customerMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));

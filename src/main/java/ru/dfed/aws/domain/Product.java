@@ -36,7 +36,6 @@ public class Product implements Serializable {
     @Column(name = "price")
     private Integer price;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }

@@ -1,6 +1,7 @@
 package ru.dfed.aws.service.impl;
 
 
+import com.amazonaws.xray.spring.aop.XRayEnabled;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import ru.dfed.aws.service.mapper.ProductMapper;
 
 
 @Service
+@XRayEnabled
 @Transactional
 public class ProductServiceImpl implements ProductService {
 

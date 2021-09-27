@@ -1,6 +1,7 @@
 package ru.dfed.aws.service.impl;
 
 
+import com.amazonaws.xray.spring.aop.XRayEnabled;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -13,25 +14,23 @@ import ru.dfed.aws.domain.Customer;
 import ru.dfed.aws.domain.ShoppingCart;
 import ru.dfed.aws.domain.dto.ShoppingCartDTO;
 import ru.dfed.aws.repository.ShoppingCartRepository;
-import ru.dfed.aws.service.ProductService;
 import ru.dfed.aws.service.ShoppingCartService;
 import ru.dfed.aws.service.mapper.ShoppingCartMapper;
 
 
 @Service
+@XRayEnabled
 @Transactional
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private final Logger log = LoggerFactory.getLogger(ShoppingCartServiceImpl.class);
 
     private final ShoppingCartRepository shoppingCartRepository;
-    private final ProductService productService;
     private final ShoppingCartMapper shoppingCartMapper;
 
     public ShoppingCartServiceImpl(ShoppingCartRepository shoppingCartRepository,
-                                   ProductService productService, ShoppingCartMapper shoppingCartMapper) {
+                                   ShoppingCartMapper shoppingCartMapper) {
         this.shoppingCartRepository = shoppingCartRepository;
-        this.productService = productService;
         this.shoppingCartMapper = shoppingCartMapper;
     }
 
